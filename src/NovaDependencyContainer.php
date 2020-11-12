@@ -206,14 +206,15 @@ class NovaDependencyContainer extends Field
                     continue;
                 }
 
-                // @todo: quickfix for MorphTo
-                $morphable_attribute = $resource->getAttribute($dependency['property'].'_type');
-                if ($morphable_attribute !== null && Str::endsWith($morphable_attribute, '\\'.$dependency['value'])) {
-                    $this->meta['dependencies'][$index]['satisfied'] = true;
-                    continue;
+                if ($resource instanceof Resource) {
+                    // @todo: quickfix for MorphTo
+                    $morphable_attribute = $resource->getAttribute($dependency['property'].'_type');
+                    if ($morphable_attribute !== null && Str::endsWith($morphable_attribute, '\\'.$dependency['value'])) {
+                        $this->meta['dependencies'][$index]['satisfied'] = true;
+                        continue;
+                    }
                 }
             }
-
         }
     }
 
